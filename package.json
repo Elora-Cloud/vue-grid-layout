@@ -8,8 +8,7 @@
     "typecheck": "pnpm -P -r typecheck",
     "build": "pnpm -P -r build",
     "test": "pnpm -F @elora/vue-grid-layout test",
-    "test:coverage": "pnpm -F @elora/vue-grid-layout test:coverage",
-    "prepare": "simple-git-hooks"
+    "test:coverage": "pnpm -F @elora/vue-grid-layout test:coverage"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^6.17.0",
