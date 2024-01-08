@@ -1,0 +1,75 @@
+@import "./reset.scss";
+@import "./flex.scss";
+
+
+.default-btn {
+  height: 28px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  font-size: 14px;
+  border-radius: 3px;
+}
+
+.padding-l-sm {
+  padding-left: 4px;
+}
+
+.padding-l-base {
+  padding-left: 8px;
+}
+
+.padding-l-mid {
+  padding-left: 16px;
+}
+
+.padding-l-lg {
+  padding-left: 24px;
+}
+
+.margin-l-sm {
+  margin-left: 4px;
+}
+
+.margin-l-base {
+  margin-left: 8px;
+}
+
+.margin-l-mid {
+  margin-left: 16px;
+}
+
+.margin-l-lg {
+  margin-left: 24px;
+}
+
+.padding-r-sm {
+  padding-left: 4px;
+}
+
+.padding-r-base {
+  padding-left: 8px;
+}
+
+.padding-r-mid {
+  padding-left: 16px;
+}
+
+.padding-r-lg {
+  padding-left: 24px;
+}
+
+.margin-r-sm {
+  margin-left: 4px;
+}
+
+.margin-r-base {
+  margin-left: 8px;
+}
+
+.margin-r-mid {
+  margin-left: 16px;
+}
+
+.margin-r-lg {
+  margin-left: 24px;
+}
