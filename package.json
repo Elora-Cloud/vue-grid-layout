@@ -1,5 +1,5 @@
 {
-  "name": "@elora/vue-grid-layout-monorepo",
+  "name": "@elora-cloud/vue-grid-layout-monorepo",
   "version": "1.0.0",
   "scripts": {
     "lint": "pnpm -P -r \"/^lint:.*/\"",

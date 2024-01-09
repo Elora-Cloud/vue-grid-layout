@@ -1,5 +1,5 @@
 {
-  "name": "demo",
+  "name": "@elora-cloud/vue-grid-layout-demo",
   "type": "module",
   "scripts": {
     "dev": "vite",
