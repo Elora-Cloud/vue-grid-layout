@@ -1,6 +1,6 @@
 {
   "name": "@elora-cloud/vue-grid-layout",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "description": "Vue3 grid layout with resize, drag and responsive",
   "keywords": [
@@ -15,17 +15,17 @@
     "typescript"
   ],
   "author": {
-    "name": "Victor Poltoratchi",
-    "email": "poltoratchi1369@gmail.com"
+    "name": "mumulx",
+    "email": "mumu_lx@163.com"
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Noction/draggable-grid.git",
+    "type": "gitee",
+    "url": "https://gitee.com/Elora_Cloud/vue-grid-layout.git",
     "directory": "packages/vue-grid-layout"
   },
   "bugs": {
-    "url": "https://github.com/Noction/draggable-grid/issues",
-    "email": "poltoratchi1369@gmail.com"
+    "url": "https://gitee.com/Elora_Cloud/vue-grid-layout/issues",
+    "email": "mumu_lx@163.com"
   },
   "files": [
     "*.d.ts",
