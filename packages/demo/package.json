@@ -12,7 +12,7 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "@elora/vue-grid-layout": "workspace:*",
+    "@elora-cloud/vue-grid-layout": "workspace:*",
     "cross-env": "^7.0.3",
     "ant-design-vue": "^3.2.15",
     "echarts": "^5.4.0",

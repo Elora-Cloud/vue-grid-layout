@@ -15,7 +15,7 @@ base on [vue3-grid-layout](https://github.com/xhlife/vue3-grid-layout)
 ### Usage
 ```shell
 pnpm i
-pnpm -F @elora/vue-grid-layout build
+pnpm -F @elora-cloud/vue-grid-layout build
 pnpm i
-pnpm -F @elora/vue-grid-layout-demo dev
+pnpm -F @elora-cloud/vue-grid-layout-demo dev
 ```

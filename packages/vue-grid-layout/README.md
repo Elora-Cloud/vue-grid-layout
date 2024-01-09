@@ -14,8 +14,8 @@ Rewrote to TypeScript, Composition API and migrated to Vue3
 ```js
   import { createApp } from 'vue'
   import App from './App.vue'
-  import VueGridLayout from '@elora/vue-grid-layout'
-  import '@elora/vue-grid-layout/styles'
+  import VueGridLayout from '@elora-cloud/vue-grid-layout'
+  import '@elora-cloud/vue-grid-layout/styles'
 
   const app = createApp(App)
 

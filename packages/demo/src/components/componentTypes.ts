@@ -1,4 +1,4 @@
-import {LayoutItem} from "@elora/vue-grid-layout/types"
+import {LayoutItem} from "@elora-cloud/vue-grid-layout/types"
 
 export interface componentAttr extends LayoutItem {
   // label: string

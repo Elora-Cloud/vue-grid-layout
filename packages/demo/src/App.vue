@@ -41,7 +41,7 @@ export default {
 </script>
 <script lang="ts" setup>
 import {ref, onMounted, markRaw} from "vue"
-import {GridLayout, GridItem} from "@elora/vue-grid-layout"
+import {GridLayout, GridItem} from "@elora-cloud/vue-grid-layout"
 import {testData} from "./test"
 
 import LineChart from "./components/echart/LineChart.vue"
