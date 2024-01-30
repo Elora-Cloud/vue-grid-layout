@@ -1,6 +1,6 @@
 {
   "name": "@elora-cloud/vue-grid-layout",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "type": "module",
   "description": "Vue3 grid layout with resize, drag and responsive",
   "keywords": [
@@ -34,10 +34,10 @@
   "license": "MIT",
   "main": "dist/vue-grid-layout.js",
   "module": "dist/vue-grid-layout.js",
-  "types": "dist/components/index.d.ts",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/components/index.d.ts",
+      "types": "./dist/index.d.ts",
       "import": "./dist/vue-grid-layout.js",
       "require": "./dist/vue-grid-layout.cjs",
       "default": "./dist/vue-grid-layout.js"
@@ -56,7 +56,7 @@
     "*": {
       "*": [
         "./dist/*",
-        "./dist/components/index.d.ts"
+        "./dist/index.d.ts"
       ]
     }
   },
@@ -103,6 +103,7 @@
     "vitest": "^0.34.6",
     "vue-eslint-parser": "^9.3.2",
     "vue-template-compiler": "^2.7.15",
+    "rollup-plugin-copy": "^3.5.0",
     "vue-tsc": "^1.8.22"
   }
 }

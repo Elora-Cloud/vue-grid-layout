@@ -5,11 +5,6 @@
     <!--<span v-if="draggable" ref="dragHandle" class="vue-draggable-handle"></span>-->
   </div>
 </template>
-<script lang="ts">
-export default {
-  name: "GridItem"
-}
-</script>
 <script lang="ts" setup>
 import {ref, inject, computed, watch, onBeforeUnmount, onMounted, useSlots} from "vue"
 // import useCurrentInstance from "@/hooks/useInstance"
@@ -32,7 +27,9 @@ import {Interactable} from "@interactjs/core/Interactable"
 
 import useCurrentInstance from "../../hooks/useInstance"
 const {proxy} = useCurrentInstance()
-
+defineOptions({
+  name: "GridItem"
+})
 // for parent's instance
 // const thisLayout: (Props & LayoutData) | undefined = inject("thisLayout")
 type Ins = (Props & LayoutData) | undefined

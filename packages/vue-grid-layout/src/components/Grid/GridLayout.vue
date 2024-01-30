@@ -13,12 +13,10 @@
     ></GridItem>
   </div>
 </template>
-<script lang="ts">
-export default {
-  name: "GridLayout"
-}
-</script>
 <script lang="ts" setup>
+defineOptions({
+  name: "GridLayout"
+})
 export interface Placeholder {
   x: number
   y: number

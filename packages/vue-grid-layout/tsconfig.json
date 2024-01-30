@@ -11,6 +11,7 @@
     "outDir": "./dist",
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "rootDir": "./src", // 指定项目的根目录
     "lib": ["esnext", "dom"],
     "allowJs": true,
     "checkJs": false,
