@@ -2,7 +2,7 @@ import type {App, Plugin} from "vue"
 import {GridItem, GridLayout} from "./components"
 import "./global.d.ts"
 const components = [GridLayout, GridItem]
-
+export * from './components'
 const VueGridLayout: Plugin = {
   install(App: App) {
     components.forEach(item => {
