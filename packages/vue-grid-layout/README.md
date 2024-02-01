@@ -7,6 +7,7 @@ Grid layout for vue 3 with draggable, resize, responsive events
 
 Rewrote to TypeScript, Composition API and migrated to Vue3
 
+base on [vue3-grid-layout](https://github.com/xhlife/vue3-grid-layout)
 
 ## Vue 3 + TypeScript + Vite
 
@@ -15,7 +16,7 @@ Rewrote to TypeScript, Composition API and migrated to Vue3
   import { createApp } from 'vue'
   import App from './App.vue'
   import VueGridLayout from '@elora-cloud/vue-grid-layout'
-  import '@elora-cloud/vue-grid-layout/styles'
+import '@elora-cloud/vue-grid-layout/es/style.css';
 
   const app = createApp(App)
 
