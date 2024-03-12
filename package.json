@@ -10,6 +10,14 @@
     "test": "pnpm -F @elora-cloud/vue-grid-layout test",
     "test:coverage": "pnpm -F @elora-cloud/vue-grid-layout test:coverage"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Elora-Cloud/vue-grid-layout.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Elora-Cloud/vue-grid-layout/issues"
+  },
+  "homepage": "https://github.com/Elora-Cloud/vue-grid-layout/blob/master/README.md",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^6.17.0",
     "@typescript-eslint/parser": "^6.17.0",
