@@ -1,3 +1,5 @@
+const process = require('node:process');
+
 module.exports = {
   plugins: ['sort-exports'],
   rules: {
@@ -8,13 +10,13 @@ module.exports = {
     // put brace after statement with 1 space and allow one inline statement
     'brace-style': ['error', '1tbs', { allowSingleLine: true }],
     // looks for any underscores (_) located within the source code.
-    camelcase: 0,
+    'camelcase': 0,
     // disallow trailing commas
     'comma-dangle': ['error', 'never'],
     // required to use type comparison === or !==
-    eqeqeq: ['error', 'always'], // ?
+    'eqeqeq': ['error', 'always'], // ?
     // required 2 indented spaces
-    indent: ['error', 2, { SwitchCase: 1 }], // ?
+    'indent': ['error', 2, { SwitchCase: 1 }], // ?
     // enforce consistent spacing after keywords
     'keyword-spacing': ['error', { after: true, before: true }],
     // require an empty line after variable declarations
@@ -44,9 +46,9 @@ module.exports = {
     // require quotes around object literal property names
     'quote-props': ['error', 'as-needed'],
     // enforce the consistent use of either backticks, double, or single quotes
-    quotes: ['error', 'single'],
+    'quotes': ['error', 'single'],
     // disallow semicolons
-    semi: ['error', 'never'], // ?
+    'semi': ['error', 'never'], // ?
     // sorted list of export declarations
     'sort-exports/sort-exports': 'error',
     // sorted list of import declarations
@@ -56,8 +58,8 @@ module.exports = {
         ignoreCase: false,
         ignoreDeclarationSort: false,
         ignoreMemberSort: false,
-        memberSyntaxSortOrder: ['none', 'all', 'single', 'multiple']
-      }
+        memberSyntaxSortOrder: ['none', 'all', 'single', 'multiple'],
+      },
     ],
     // disallow Space Before Blocks
     'space-before-blocks': 'error',
@@ -77,6 +79,6 @@ module.exports = {
     // requires destructuring from arrays and/or objects
     'prefer-destructuring': 'error',
     // requires or disallows a space before function parenthesis.
-    'space-before-function-paren': 'error'
-  }
-}
+    'space-before-function-paren': 'error',
+  },
+};

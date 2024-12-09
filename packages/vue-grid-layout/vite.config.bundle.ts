@@ -1,30 +1,31 @@
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import { resolve } from "node:path"
+import { resolve } from 'node:path';
+import vue from '@vitejs/plugin-vue';
+import { defineConfig } from 'vite';
+
 export default defineConfig({
   plugins: [vue()],
   resolve: {
     alias: {
-      "@": resolve(__dirname, "./src")
-    }
+      '@': resolve(__dirname, './src'),
+    },
   },
   build: {
-    outDir: "dist",
+    outDir: 'dist',
     emptyOutDir: false,
     minify: true,
     rollupOptions: {
-      external: ["vue"],
+      external: ['vue'],
       output: {
-        exports: "named",
+        exports: 'named',
         globals: {
-          vue: "Vue"
-        }
-      }
+          vue: 'Vue',
+        },
+      },
     },
     lib: {
-      entry: "src/index.ts",
-      formats: ["umd", "cjs", "es"],
-      name: "vue-grid-layout"
-    }
-  }
-})
+      entry: 'src/index.ts',
+      formats: ['umd', 'cjs', 'es'],
+      name: 'vue-grid-layout',
+    },
+  },
+});

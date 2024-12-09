@@ -1,5 +1,8 @@
-<template></template>
 <script lang="ts" setup>
-import {ref, reactive, toRefs} from "vue"
 </script>
+
+<template>
+  <div />
+</template>
+
 <style lang="scss" scoped></style>

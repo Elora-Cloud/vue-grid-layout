@@ -1,17 +1,6 @@
-## [1.9.5] - 24.10.2022
+### [v1.0.6](https://github.com/Elora-Cloud/vue-grid-layout/compare/v1.0.3...v1.0.6)
 
-### minor features
+`2024-12-09`
+### [v1.0.3](https://github.com/Elora-Cloud/vue-grid-layout/compare/v1.0.2...v1.0.3)
 
-- Changes shift logic
-
-## [1.9.2] - 17.10.2022
-
-
-### Major changes
-
-- `horizontalShift` Added new prop for gridLayout *(swaps grid items standing next to each other when moving horizontally)*
-
-
-### Changed features
-
-- Update `license` from `MITT` to `MIT`
+`2024-01-09`

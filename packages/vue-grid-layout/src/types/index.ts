@@ -1,4 +1,4 @@
-export const IS_UNITLESS = {
+export const IS_UNITLESS: Record<string, boolean> = {
   animationIterationCount: true,
   boxFlex: true,
   boxFlexGroup: true,
@@ -28,10 +28,10 @@ export const IS_UNITLESS = {
   stopOpacity: true,
   strokeDashoffset: true,
   strokeOpacity: true,
-  strokeWidth: true
-}
+  strokeWidth: true,
+};
 
-export type Layout = Array<LayoutItem>
+export type Layout = Array<LayoutItem>;
 
 export type LayoutItem = LayoutItemRequired & {
   minW?: number
@@ -42,7 +42,7 @@ export type LayoutItem = LayoutItemRequired & {
   static?: boolean
   isDraggable?: boolean
   isResizable?: boolean
-}
+};
 
 export interface LayoutItemRequired {
   w: number
@@ -62,14 +62,14 @@ export type DragCallbackData = {
 };
 */
 // export type DragEvent = {e: Event} & DragCallbackData;
-export type Size = {width: number; height: number}
+export interface Size { width: number, height: number }
 
 export interface TopLeftStyle {
   top: string
   left: string
   width: string
   height: string
-  position: "absolute"
+  position: 'absolute'
 }
 
 /**
@@ -97,12 +97,12 @@ export interface TransformStyle {
   OTransform: string
   width: string
   height: string
-  position: "absolute" | "relative"
+  position: 'absolute' | 'relative'
 }
-export type Breakpoint = string
-export type Breakpoints = {lg?: number; md?: number; sm?: number; xs?: number; xxs?: number}
-export type ResponsiveLayout = {lg?: Layout; md?: Layout; sm?: Layout; xs?: Layout; xxs?: Layout}
-export type Direction = "ltr" | "rtl" | "auto"
+export type Breakpoint = string;
+export interface Breakpoints { lg?: number, md?: number, sm?: number, xs?: number, xxs?: number, [key: string]: number | undefined }
+export interface ResponsiveLayout { lg?: Layout, md?: Layout, sm?: Layout, xs?: Layout, xxs?: Layout, [key: Breakpoint]: Layout | undefined }
+export type Direction = 'ltr' | 'rtl' | 'auto';
 export interface Point {
   x: number
   y: number

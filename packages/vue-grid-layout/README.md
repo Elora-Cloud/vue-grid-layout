@@ -2,7 +2,6 @@
 
 This project js support by [vue-grid-layout](https://github.com/jbaysolutions/vue-grid-layout), but vue-grid-layout do not support vue3.
 
-
 Grid layout for vue 3 with draggable, resize, responsive events
 
 Rewrote to TypeScript, Composition API and migrated to Vue3
@@ -13,17 +12,14 @@ base on [vue3-grid-layout](https://github.com/xhlife/vue3-grid-layout)
 
 ### Usage
 ```js
-  import { createApp } from 'vue'
-  import App from './App.vue'
-  import VueGridLayout from '@elora-cloud/vue-grid-layout'
+import VueGridLayout from '@elora-cloud/vue-grid-layout';
+import { createApp } from 'vue';
+import App from './App.vue';
 import '@elora-cloud/vue-grid-layout/es/style.css';
 
-  const app = createApp(App)
+const app = createApp(App);
 
-  app.use(VueGridLayout)
+app.use(VueGridLayout);
 
-  app.mount('#app')
+app.mount('#app');
 ```
-
-
-

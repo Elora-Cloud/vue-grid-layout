@@ -1,8 +1,50 @@
+<script lang="ts">
+</script>
+
+<script lang="ts" setup>
+import { GridItem, GridLayout } from '@elora-cloud/vue-grid-layout';
+import { markRaw, onMounted, ref } from 'vue';
+import BarChart from './components/echart/BarChart.vue';
+
+import LineChart from './components/echart/LineChart.vue';
+import PieChart from './components/echart/PieChart.vue';
+import { testData } from './test';
+
+defineOptions({
+  name: 'CardLayout',
+});
+const ComponentsLib = markRaw<any>({
+  LineChart,
+  BarChart,
+  PieChart,
+});
+interface LayoutItemMore {
+  x: number
+  y: number
+  w: number
+  static?: boolean
+  h: number
+  i: string
+  component: string
+}
+const mode = ref<boolean>(false);
+// const layoutJSON = ref<Array<LayoutItemMore>>(testData)
+const layoutJSON = ref<Array<LayoutItemMore>>(testData);
+
+onMounted(() => {
+  layoutJSON.value = testData;
+});
+</script>
+
 <template>
   <div class="card-layout">
     <div class="mode-control">
-      <button class="btn" :class="{active: !mode}" @click="mode = false">show mode</button>
-      <button class="btn" :class="{active: mode}" @click="mode = true">edit mode</button>
+      <button class="btn" :class="{ active: !mode }" @click="mode = false">
+        show mode
+      </button>
+      <button class="btn" :class="{ active: mode }" @click="mode = true">
+        edit mode
+      </button>
     </div>
     <GridLayout
       v-model:layout="layoutJSON"
@@ -14,7 +56,7 @@
       <GridItem
         v-for="item in layoutJSON"
         :key="item.i"
-        v-slot="{style}"
+        v-slot="{ style }"
         class="l-item"
         :static="item.static"
         :x="item.x"
@@ -28,47 +70,13 @@
             :is="ComponentsLib[item.component]"
             v-if="item.component"
             :style-obj="style"
-          ></component>
+          />
         </div>
       </GridItem>
     </GridLayout>
   </div>
 </template>
-<script lang="ts">
-export default {
-  name: "CardLayout"
-}
-</script>
-<script lang="ts" setup>
-import {ref, onMounted, markRaw} from "vue"
-import {GridLayout, GridItem} from "@elora-cloud/vue-grid-layout"
-import {testData} from "./test"
 
-import LineChart from "./components/echart/LineChart.vue"
-import BarChart from "./components/echart/BarChart.vue"
-import PieChart from "./components/echart/PieChart.vue"
-const ComponentsLib = markRaw({
-  LineChart,
-  BarChart,
-  PieChart
-})
-interface LayoutItemMore {
-  x: number
-  y: number
-  w: number
-  static?: boolean
-  h: number
-  i: string
-  component: string
-}
-const mode = ref<boolean>(false)
-// const layoutJSON = ref<Array<LayoutItemMore>>(testData)
-const layoutJSON = ref<Array<LayoutItemMore>>(testData)
-
-onMounted(() => {
-  layoutJSON.value = testData
-})
-</script>
 <style lang="scss" scoped>
 .card-layout {
   overflow-x: scroll;

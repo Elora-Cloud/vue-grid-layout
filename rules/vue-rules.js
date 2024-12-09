@@ -7,7 +7,7 @@ module.exports = {
     // disallow or enforce spaces inside of blocks after opening block and before closing block in <template>
     'vue/block-spacing': 'error',
     // enforce line breaks after opening and before closing block-level tags
-    'vue/block-tag-newline': ['error', { maxEmptyLines: 1,  multiline: 'always', singleline: 'always' }],
+    'vue/block-tag-newline': ['error', { maxEmptyLines: 1, multiline: 'always', singleline: 'always' }],
     // enforce consistent brace style for blocks in <template>
     'vue/brace-style': ['error', '1tbs', { allowSingleLine: true }],
     // disallow trailing commas
@@ -90,6 +90,6 @@ module.exports = {
     // disallow static inline style attributes
     'vue/sort-keys': 'error',
     // enforce or forbid parentheses after method calls without arguments in v-on directives
-    'vue/v-on-function-call': 'error'
-  }
-}
+    'vue/v-on-function-call': 'error',
+  },
+};
