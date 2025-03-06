@@ -7,7 +7,7 @@ export default defineConfig({
   build: {
     target: 'modules',
     outDir: 'es',
-    emptyOutDir: false,
+    emptyOutDir: true,
     minify: true,
     // 这一块是不会被使用的
     lib: {

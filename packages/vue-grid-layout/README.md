@@ -15,7 +15,7 @@ base on [vue3-grid-layout](https://github.com/xhlife/vue3-grid-layout)
 import VueGridLayout from '@elora-cloud/vue-grid-layout';
 import { createApp } from 'vue';
 import App from './App.vue';
-import '@elora-cloud/vue-grid-layout/es/style.css';
+import '@elora-cloud/vue-grid-layout/dist/vue-grid-layout.css';
 
 const app = createApp(App);
 

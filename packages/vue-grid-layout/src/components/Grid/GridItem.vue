@@ -4,7 +4,7 @@ import type { Emitter } from 'mitt';
 import type { Breakpoints, EventsData, Layout } from '../../types';
 import type { LayoutData, Props } from './GridLayout.vue';
 import interact from '@interactjs/interact';
-import { computed, inject, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import { computed, defineEmits, defineExpose, defineOptions, defineProps, defineSlots, inject, onBeforeUnmount, onMounted, ref, watch, withDefaults } from 'vue';
 import { getDocumentDir } from '../../helpers/DOM';
 import { createCoreData, getControlPosition } from '../../helpers/draggableUtils';
 import { getColsFromBreakpoint } from '../../helpers/responsiveUtils';
@@ -51,18 +51,11 @@ const props = withDefaults(defineProps<PropsChild>(), {
 // console.log(thisLayout, eventBus)
 
 const emit = defineEmits<{
-  (
-    e: 'containerResized',
-    i: number | string,
-    h: number,
-    w: number,
-    height: number,
-    width: number
-  ): void
-  (e: 'resize', i: number | string, h: number, w: number, height: number, width: number): void
-  (e: 'resized', i: number | string, h: number, w: number, height: number, width: number): void
-  (e: 'move', i: number | string, x: number, y: number): void
-  (e: 'moved', i: number | string, x: number, y: number): void
+  containerResized: [i: number | string, h: number, w: number, height: number, width: number]
+  resize: [i: number | string, h: number, w: number, height: number, width: number]
+  resized: [i: number | string, h: number, w: number, height: number, width: number]
+  move: [ i: number | string, x: number, y: number]
+  moved: [i: number | string, x: number, y: number]
 }>();
 const slots = defineSlots<{
   default: (props: { style: any }) => any

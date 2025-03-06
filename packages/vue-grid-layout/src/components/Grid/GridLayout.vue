@@ -3,7 +3,7 @@ import type { Emitter, EventType } from 'mitt';
 import type { EventsData, Layout, LayoutItem } from '../../types';
 import elementResizeDetectorMaker from 'element-resize-detector';
 import mitt from 'mitt';
-import { nextTick, onBeforeMount, onBeforeUnmount, onMounted, provide, ref, watch } from 'vue';
+import { defineEmits, defineExpose, defineOptions, defineProps, nextTick, onBeforeMount, onBeforeUnmount, onMounted, provide, ref, watch, withDefaults } from 'vue';
 
 import { addWindowEventListener, removeWindowEventListener } from '../../helpers/DOM';
 import {
@@ -55,13 +55,13 @@ const props = withDefaults(defineProps<Props>(), {
 // provide("thisLayout", proxy)
 // add listen
 const emit = defineEmits<{
-  (e: 'layoutCreated', layout: Layout): void
-  (e: 'layoutBeforeMount', layout: Layout): void
-  (e: 'layoutMounted', layout: Layout): void
-  (e: 'layoutUpdated', layout: Layout): void
-  (e: 'layoutReady', layout: Layout): void
-  (e: 'update:layout', layout: Layout): void
-  (e: 'breakpointChanged', newBreakpoint: string, layout: Layout): void
+  'layoutCreated': [layout: Layout]
+  'layoutBeforeMount': [layout: Layout]
+  'layoutMounted': [layout: Layout]
+  'layoutUpdated': [layout: Layout]
+  'layoutReady': [layout: Layout]
+  'update:layout': [layout: Layout]
+  'breakpointChanged': [newBreakpoint: string, layout: Layout]
 }>();
 export interface Placeholder {
   x: number
