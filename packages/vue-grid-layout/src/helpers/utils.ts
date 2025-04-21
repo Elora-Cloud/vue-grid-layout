@@ -26,8 +26,6 @@ export function addPx(name: string, value: number | string) {
 
 // Flow can't really figure this out, so we just use Object
 export function autoBindHandlers(el: HTMLElement, fns: Array<string>): void {
-  // eslint-disable-next-line ts/ban-ts-comment
-  // @ts-expect-error
   fns.forEach(key => (el[key] = el[key].bind(el)));
 }
 
@@ -614,8 +612,6 @@ export function validateLayout(layout: Layout, contextName?: string): void {
     const item = layout[i];
 
     for (let j = 0; j < subProps.length; j++) {
-      // eslint-disable-next-line ts/ban-ts-comment
-      // @ts-expect-error
       if (typeof item[subProps[j]] !== 'number') {
         throw new TypeError(`VueGridLayout: ${contextName}[${i}].${subProps[j]} must be a number!`);
       }

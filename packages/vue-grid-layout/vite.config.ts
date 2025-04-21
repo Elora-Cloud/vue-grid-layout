@@ -1,4 +1,5 @@
 import { resolve } from 'node:path';
+import { generateExternal } from '@elora-cloud/elora-cli';
 import vue from '@vitejs/plugin-vue';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
@@ -15,24 +16,13 @@ export default defineConfig({
       formats: ['es', 'cjs'],
     },
     rollupOptions: {
-      external: (id, _parent, _isResolved) => {
-        const ex = ['vue', 'element-resize-detector', 'mitt'];
-        if (ex.includes(id)) {
-          return true;
-        }
-        else if (id.includes('interactjs')) {
-          return true;
-        }
-        return false;
-      },
-      // external:['vue'],
       input: ['src/index.ts'],
       output: [
         // esm
         {
-          format: 'es',
+          format: 'esm',
           dir: 'es',
-          entryFileNames: '[name].js',
+          entryFileNames: '[name].mjs',
           preserveModules: true,
           preserveModulesRoot: 'src',
         },
@@ -45,6 +35,8 @@ export default defineConfig({
           preserveModulesRoot: 'src',
         },
       ],
+      // 确保外部化处理那些你不想打包进库的依赖
+      external: generateExternal({ full: true, packagePath: resolve(__dirname, './package.json') }),
     },
   },
   plugins: [vue(), dts()],
@@ -52,5 +44,6 @@ export default defineConfig({
     alias: {
       '@': resolve(__dirname, './src'),
     },
+    dedupe: ['vue'],
   },
 });

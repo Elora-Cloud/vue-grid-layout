@@ -1,24 +1,17 @@
 .flex-row {
+  flex-flow: row wrap;
   display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
   box-sizing: border-box;
-  display: -webkit-flex;
-  -webkit-box-sizing: border-box;
 }
 
 .flex-column {
-  display: flex;
   flex-direction: column;
+  display: flex;
   box-sizing: border-box;
-  display: -webkit-flex;
-  -webkit-box-sizing: border-box;
 }
 
 .flex-row-right {
-  display: flex;
   justify-content: flex-end;
+  display: flex;
   box-sizing: border-box;
-  display: -webkit-flex;
-  -webkit-box-sizing: border-box;
 }

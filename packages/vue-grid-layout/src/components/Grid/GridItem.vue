@@ -1,8 +1,7 @@
 <script lang="ts" setup>
 import type { Interactable } from '@interactjs/core/Interactable';
 import type { Emitter } from 'mitt';
-import type { Breakpoints, EventsData, Layout } from '../../types';
-import type { LayoutData, Props } from './GridLayout.vue';
+import type { Breakpoints, EventsData, GridItemPos, GridItemPropsChild, GridItemWH, GridLayoutLayoutData, GridLayoutProps, Layout } from '../../types';
 import interact from '@interactjs/interact';
 import { computed, defineEmits, defineExpose, defineOptions, defineProps, defineSlots, inject, onBeforeUnmount, onMounted, ref, watch, withDefaults } from 'vue';
 import { getDocumentDir } from '../../helpers/DOM';
@@ -31,8 +30,8 @@ defineOptions({
 //   i: number | string
 // }
 
-// Props Data
-const props = withDefaults(defineProps<PropsChild>(), {
+// GridLayoutProps Data
+const props = withDefaults(defineProps<GridItemPropsChild>(), {
   isDraggable: null,
   isResizable: null,
   isBounded: null,
@@ -62,8 +61,8 @@ const slots = defineSlots<{
 }>();
 const { proxy } = useCurrentInstance();
 // for parent's instance
-// const thisLayout: (Props & LayoutData) | undefined = inject("thisLayout")
-type Ins = (Props & LayoutData) | undefined;
+// const thisLayout: (GridLayoutProps & GridLayoutLayoutData) | undefined = inject("thisLayout")
+type Ins = (GridLayoutProps & GridLayoutLayoutData) | undefined;
 const thisLayout = proxy?.$parent as Ins;
 // console.log(thisLayout)
 
@@ -82,38 +81,7 @@ const eventBus = inject('eventBus') as Emitter<{
   compact?: undefined
   directionchange: undefined
 }>;
-interface PropsChild {
-  isDraggable?: boolean | null
-  isResizable?: boolean | null
-  isBounded?: boolean | null
-  static?: boolean
-  minH?: number
-  minW?: number
-  maxH?: number
-  maxW?: number
-  x: number
-  y: number
-  w: number
-  h: number
-  i: string | number
-  dragIgnoreFrom?: string
-  dragAllowFrom?: string | null
-  resizeIgnoreFrom?: string
-  preserveAspectRatio?: boolean
-  dragOption?: { [key: string]: any }
-  resizeOption?: { [key: string]: any }
-}
-interface Pos {
-  left?: number
-  right?: number
-  top: number
-  width: number
-  height: number
-}
-interface WH {
-  width: number
-  height: number
-}
+
 // item dom
 const this$refsItem = ref<HTMLElement>({} as HTMLElement);
 
@@ -130,9 +98,9 @@ const useCssTransforms = ref<boolean>(true);
 const useStyleCursor = ref<boolean>(true);
 
 const isDragging = ref(false);
-const dragging = ref<Pos | null>(null);
+const dragging = ref<GridItemPos | null>(null);
 const isResizing = ref(false);
-const resizing = ref<WH | null>(null);
+const resizing = ref<GridItemWH | null>(null);
 const lastX = ref(Number.NaN);
 const lastY = ref(Number.NaN);
 const lastW = ref(Number.NaN);
@@ -473,7 +441,7 @@ function createStyle() {
 function emitContainerResized() {
   // this.style has width and height with trailing 'px'. The
   // resized event is without them
-  const styleProps: any = {} as WH;
+  const styleProps: any = {} as GridItemWH;
   for (const prop of ['width', 'height']) {
     const val = styleObj.value[prop];
     const matches = val.match(/^(\d+)px$/);
@@ -534,7 +502,7 @@ function handleResize(event: MouseEvent) {
     }
   }
 
-  // Get new WH
+  // Get new GridItemWH
   pos = calcWH(newSize.height, newSize.width);
   if (pos.w < props.minW) {
     pos.w = props.minW;
@@ -618,7 +586,7 @@ function handleDrag(event: MouseEvent) {
         newPosition.left = cLeft - pLeft;
       }
       newPosition.top = cTop - pTop;
-      dragging.value = newPosition as Pos;
+      dragging.value = newPosition as GridItemPos;
       isDragging.value = true;
       break;
     }
@@ -676,7 +644,7 @@ function handleDrag(event: MouseEvent) {
       //                        console.log("### drag => " + event.type + ", x=" + x + ", y=" + y);
       //                        console.log("### drag => " + event.type + ", deltaX=" + coreEvent.deltaX + ", deltaY=" + coreEvent.deltaY);
       //                        console.log("### drag end => " + JSON.stringify(newPosition));
-      dragging.value = newPosition as Pos;
+      dragging.value = newPosition as GridItemPos;
       break;
     }
   }
@@ -712,7 +680,7 @@ function handleDrag(event: MouseEvent) {
   };
   eventBus.emit('dragEvent', data);
 }
-function calcPosition(x: number, y: number, w: number, h: number): Pos {
+function calcPosition(x: number, y: number, w: number, h: number): GridItemPos {
   const colWidth = calcColWidth();
   // add rtl support
   let out;
@@ -978,11 +946,11 @@ defineExpose({
 .vue-grid-item {
   transition: all 200ms ease;
   transition-property: left, top, right;
+
   /* add right for rtl */
 }
 
 .vue-grid-item.no-touch {
-  -ms-touch-action: none;
   touch-action: none;
 }
 
@@ -1012,10 +980,6 @@ defineExpose({
   opacity: 0.2;
   transition-duration: 100ms;
   z-index: 2;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
   user-select: none;
 }
 
@@ -1037,7 +1001,7 @@ defineExpose({
 .vue-grid-item > .vue-rtl-resizable-handle {
   bottom: 0;
   left: 0;
-  background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAuMDAwMDAwMDAwMDAwMDAyIiBoZWlnaHQ9IjEwLjAwMDAwMDAwMDAwMDAwMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KIDwhLS0gQ3JlYXRlZCB3aXRoIE1ldGhvZCBEcmF3IC0gaHR0cDovL2dpdGh1Yi5jb20vZHVvcGl4ZWwvTWV0aG9kLURyYXcvIC0tPgogPGc+CiAgPHRpdGxlPmJhY2tncm91bmQ8L3RpdGxlPgogIDxyZWN0IGZpbGw9Im5vbmUiIGlkPSJjYW52YXNfYmFja2dyb3VuZCIgaGVpZ2h0PSIxMiIgd2lkdGg9IjEyIiB5PSItMSIgeD0iLTEiLz4KICA8ZyBkaXNwbGF5PSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgeT0iMCIgeD0iMCIgaGVpZ2h0PSIxMDAlIiB3aWR0aD0iMTAwJSIgaWQ9ImNhbnZhc0dyaWQiPgogICA8cmVjdCBmaWxsPSJ1cmwoI2dyaWRwYXR0ZXJuKSIgc3Ryb2tlLXdpZHRoPSIwIiB5PSIwIiB4PSIwIiBoZWlnaHQ9IjEwMCUiIHdpZHRoPSIxMDAlIi8+CiAgPC9nPgogPC9nPgogPGc+CiAgPHRpdGxlPkxheWVyIDE8L3RpdGxlPgogIDxsaW5lIGNhbnZhcz0iI2ZmZmZmZiIgY2FudmFzLW9wYWNpdHk9IjEiIHN0cm9rZS1saW5lY2FwPSJ1bmRlZmluZWQiIHN0cm9rZS1saW5lam9pbj0idW5kZWZpbmVkIiBpZD0ic3ZnXzEiIHkyPSItNzAuMTc4NDA3IiB4Mj0iMTI0LjQ2NDE3NSIgeTE9Ii0zOC4zOTI3MzciIHgxPSIxNDQuODIxMjg5IiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlPSIjMDAwIiBmaWxsPSJub25lIi8+CiAgPGxpbmUgc3Ryb2tlPSIjNjY2NjY2IiBzdHJva2UtbGluZWNhcD0idW5kZWZpbmVkIiBzdHJva2UtbGluZWpvaW49InVuZGVmaW5lZCIgaWQ9InN2Z181IiB5Mj0iOS4xMDY5NTciIHgyPSIwLjk0NzI0NyIgeTE9Ii0wLjAxODEyOCIgeDE9IjAuOTQ3MjQ3IiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz4KICA8bGluZSBzdHJva2UtbGluZWNhcD0idW5kZWZpbmVkIiBzdHJva2UtbGluZWpvaW49InVuZGVmaW5lZCIgaWQ9InN2Z183IiB5Mj0iOSIgeDI9IjEwLjA3MzUyOSIgeTE9IjkiIHgxPSItMC42NTU2NCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2U9IiM2NjY2NjYiIGZpbGw9Im5vbmUiLz4KIDwvZz4KPC9zdmc+);
+  background: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAuMDAwMDAwMDAwMDAwMDAyIiBoZWlnaHQ9IjEwLjAwMDAwMDAwMDAwMDAwMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KIDwhLS0gQ3JlYXRlZCB3aXRoIE1ldGhvZCBEcmF3IC0gaHR0cDovL2dpdGh1Yi5jb20vZHVvcGl4ZWwvTWV0aG9kLURyYXcvIC0tPgogPGc+CiAgPHRpdGxlPmJhY2tncm91bmQ8L3RpdGxlPgogIDxyZWN0IGZpbGw9Im5vbmUiIGlkPSJjYW52YXNfYmFja2dyb3VuZCIgaGVpZ2h0PSIxMiIgd2lkdGg9IjEyIiB5PSItMSIgeD0iLTEiLz4KICA8ZyBkaXNwbGF5PSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgeT0iMCIgeD0iMCIgaGVpZ2h0PSIxMDAlIiB3aWR0aD0iMTAwJSIgaWQ9ImNhbnZhc0dyaWQiPgogICA8cmVjdCBmaWxsPSJ1cmwoI2dyaWRwYXR0ZXJuKSIgc3Ryb2tlLXdpZHRoPSIwIiB5PSIwIiB4PSIwIiBoZWlnaHQ9IjEwMCUiIHdpZHRoPSIxMDAlIi8+CiAgPC9nPgogPC9nPgogPGc+CiAgPHRpdGxlPkxheWVyIDE8L3RpdGxlPgogIDxsaW5lIGNhbnZhcz0iI2ZmZmZmZiIgY2FudmFzLW9wYWNpdHk9IjEiIHN0cm9rZS1saW5lY2FwPSJ1bmRlZmluZWQiIHN0cm9rZS1saW5lam9pbj0idW5kZWZpbmVkIiBpZD0ic3ZnXzEiIHkyPSItNzAuMTc4NDA3IiB4Mj0iMTI0LjQ2NDE3NSIgeTE9Ii0zOC4zOTI3MzciIHgxPSIxNDQuODIxMjg5IiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlPSIjMDAwIiBmaWxsPSJub25lIi8+CiAgPGxpbmUgc3Ryb2tlPSIjNjY2NjY2IiBzdHJva2UtbGluZWNhcD0idW5kZWZpbmVkIiBzdHJva2UtbGluZWpvaW49InVuZGVmaW5lZCIgaWQ9InN2Z181IiB5Mj0iOS4xMDY5NTciIHgyPSIwLjk0NzI0NyIgeTE9Ii0wLjAxODEyOCIgeDE9IjAuOTQ3MjQ3IiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz4KICA8bGluZSBzdHJva2UtbGluZWNhcD0idW5kZWZpbmVkIiBzdHJva2UtbGluZWpvaW49InVuZGVmaW5lZCIgaWQ9InN2Z183IiB5Mj0iOSIgeDI9IjEwLjA3MzUyOSIgeTE9IjkiIHgxPSItMC42NTU2NCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2U9IiM2NjY2NjYiIGZpbGw9Im5vbmUiLz4KIDwvZz4KPC9zdmc+");
   background-position: bottom left;
   padding-left: 3px;
   background-repeat: no-repeat;

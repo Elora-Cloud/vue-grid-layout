@@ -1,5 +1,6 @@
-@use "./reset.scss";
-@use "./flex.scss";
+@use "./reset";
+@use "./flex";
+@use "@elora-cloud/vue-grid-layout/dist/vue-grid-layout.css";
 
 
 .default-btn {

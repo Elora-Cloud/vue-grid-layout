@@ -1,7 +1,7 @@
 {
   "name": "@elora-cloud/vue-grid-layout-monorepo",
   "version": "1.0.0",
-  "packageManager": "pnpm@10.5.2",
+  "packageManager": "pnpm@10.8.1",
   "homepage": "https://github.com/Elora-Cloud/vue-grid-layout/blob/master/README.md",
   "repository": {
     "type": "git",
@@ -17,23 +17,25 @@
   "scripts": {
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --max-warnings 0 --fix",
+    "stylelint": "stylelint \"{**/*,*}.{vue,sass,scss}\" --allow-empty-input --custom-syntax",
+    "stylelint:fix": "stylelint --fix \"{**/*,*}.{vue,sass,scss}\" --allow-empty-input --custom-syntax",
     "typecheck": "pnpm -P -r typecheck",
     "build": "pnpm -P -r build",
     "test": "pnpm -F @elora-cloud/vue-grid-layout test",
     "test:coverage": "pnpm -F @elora-cloud/vue-grid-layout test:coverage"
   },
   "devDependencies": {
-    "@elora-cloud/eslint-config": "^4.5.1",
-    "eslint": "^9.21.0",
-    "prettier": "^3.5.3",
-    "sass": "^1.85.1",
-    "stylelint": "^16.15.0",
-    "stylelint-config-recommended": "^15.0.0",
-    "stylelint-config-recommended-vue": "^1.6.0",
-    "stylelint-config-standard": "^37.0.0",
-    "stylelint-config-standard-scss": "^14.0.0",
-    "typescript": "^5.8.2",
-    "vue-tsc": "^2.2.8"
+    "@elora-cloud/eslint-config": "catalog:",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "sass": "catalog:",
+    "stylelint": "catalog:",
+    "stylelint-config-recommended": "catalog:",
+    "stylelint-config-recommended-vue": "catalog:",
+    "stylelint-config-standard": "catalog:",
+    "stylelint-config-standard-scss": "catalog:",
+    "typescript": "catalog:",
+    "vue-tsc": "catalog:"
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"

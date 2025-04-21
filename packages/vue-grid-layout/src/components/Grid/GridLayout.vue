@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { Emitter, EventType } from 'mitt';
-import type { EventsData, Layout, LayoutItem } from '../../types';
+import type { EventsData, GridLayoutPlaceholder, GridLayoutProps, Layout, LayoutItem } from '../../types';
 import elementResizeDetectorMaker from 'element-resize-detector';
 import mitt from 'mitt';
 import { defineEmits, defineExpose, defineOptions, defineProps, nextTick, onBeforeMount, onBeforeUnmount, onMounted, provide, ref, watch, withDefaults } from 'vue';
@@ -30,8 +30,8 @@ defineOptions({
 
 // const {proxy} = useCurrentInstance()
 
-// Props Data
-const props = withDefaults(defineProps<Props>(), {
+// GridLayoutProps Data
+const props = withDefaults(defineProps<GridLayoutProps>(), {
   autoSize: true,
   colNum: 12,
   rowHeight: 100,
@@ -63,48 +63,7 @@ const emit = defineEmits<{
   'update:layout': [layout: Layout]
   'breakpointChanged': [newBreakpoint: string, layout: Layout]
 }>();
-export interface Placeholder {
-  x: number
-  y: number
-  w: number
-  h: number
-  i: number | string
-}
-export interface Props {
-  autoSize?: boolean
-  colNum?: number
-  rowHeight?: number
-  maxRows?: number
-  margin?: Array<number>
-  isDraggable?: boolean
-  isResizable?: boolean
-  isMirrored?: boolean
-  isBounded?: boolean
-  useCssTransforms?: boolean
-  verticalCompact?: boolean
-  restoreOnDrag?: boolean
-  layout: Layout
-  responsive?: boolean
-  responsiveLayouts?: { [key: string]: any }
-  transformScale?: number
-  breakpoints?: { lg: number, md: number, sm: number, xs: number, xxs: number }
-  cols?: { lg: number, md: number, sm: number, xs: number, xxs: number }
-  preventCollision?: boolean
-  useStyleCursor?: boolean
-}
-export interface LayoutData {
-  width: number | null
-  mergeStyle: { [key: string]: string }
-  lastLayoutLength: number
-  isDragging: boolean
-  placeholder: Placeholder
-  layouts: { [key: string]: Layout | any }
-  lastBreakpoint: string | null
-  originalLayout: Layout | null
-  erd: elementResizeDetectorMaker.Erd | null
-  positionsBeforeDrag: { [key: string]: string }
-  this$refsLayout: HTMLElement
-}
+
 // self data
 const width = ref<number | null>(null);
 const mergeStyle = ref<{ [key: string]: string }>({});
@@ -112,7 +71,7 @@ const mergeStyle = ref<{ [key: string]: string }>({});
 
 const lastLayoutLength = ref<number>(0);
 const isDragging = ref<boolean>(false);
-const placeholder = ref<Placeholder>({ x: 0, y: 0, w: 0, h: 0, i: -1 });
+const placeholder = ref<GridLayoutPlaceholder>({ x: 0, y: 0, w: 0, h: 0, i: -1 });
 const layouts = ref<{ [key: string]: Layout | any }>({}); // array to store all layouts from different breakpoints
 const lastBreakpoint = ref<string | null>(null); // store last active breakpoint
 const originalLayout = ref<Layout | null>(null);

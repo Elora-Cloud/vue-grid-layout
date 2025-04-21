@@ -1,3 +1,5 @@
+import type elementResizeDetectorMaker from 'element-resize-detector';
+
 export const IS_UNITLESS: Record<string, boolean> = {
   animationIterationCount: true,
   boxFlex: true,
@@ -122,4 +124,80 @@ export interface EventsData {
   y: number
   h: number
   w: number
+}
+
+export interface GridItemPropsChild {
+  isDraggable?: boolean | null
+  isResizable?: boolean | null
+  isBounded?: boolean | null
+  static?: boolean
+  minH?: number
+  minW?: number
+  maxH?: number
+  maxW?: number
+  x: number
+  y: number
+  w: number
+  h: number
+  i: string | number
+  dragIgnoreFrom?: string
+  dragAllowFrom?: string | null
+  resizeIgnoreFrom?: string
+  preserveAspectRatio?: boolean
+  dragOption?: { [key: string]: any }
+  resizeOption?: { [key: string]: any }
+}
+export interface GridItemPos {
+  left?: number
+  right?: number
+  top: number
+  width: number
+  height: number
+}
+export interface GridItemWH {
+  width: number
+  height: number
+}
+
+export interface GridLayoutPlaceholder {
+  x: number
+  y: number
+  w: number
+  h: number
+  i: number | string
+}
+export interface GridLayoutProps {
+  autoSize?: boolean
+  colNum?: number
+  rowHeight?: number
+  maxRows?: number
+  margin?: Array<number>
+  isDraggable?: boolean
+  isResizable?: boolean
+  isMirrored?: boolean
+  isBounded?: boolean
+  useCssTransforms?: boolean
+  verticalCompact?: boolean
+  restoreOnDrag?: boolean
+  layout: Layout
+  responsive?: boolean
+  responsiveLayouts?: { [key: string]: any }
+  transformScale?: number
+  breakpoints?: { lg: number, md: number, sm: number, xs: number, xxs: number }
+  cols?: { lg: number, md: number, sm: number, xs: number, xxs: number }
+  preventCollision?: boolean
+  useStyleCursor?: boolean
+}
+export interface GridLayoutLayoutData {
+  width: number | null
+  mergeStyle: { [key: string]: string }
+  lastLayoutLength: number
+  isDragging: boolean
+  placeholder: GridLayoutPlaceholder
+  layouts: { [key: string]: Layout | any }
+  lastBreakpoint: string | null
+  originalLayout: Layout | null
+  erd: elementResizeDetectorMaker.Erd | null
+  positionsBeforeDrag: { [key: string]: string }
+  this$refsLayout: HTMLElement
 }

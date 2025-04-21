@@ -81,22 +81,27 @@ onMounted(() => {
 .card-layout {
   overflow-x: scroll;
 }
+
 .l-item {
   border: 1px solid #ccc;
 }
+
 .mode-control {
   height: 50px;
   display: flex;
   padding-left: 10px;
   margin-top: 10px;
+
   .btn {
     width: 100px;
     border: none;
     border-radius: 3px;
+
     &:last-child {
       margin-left: 10px;
     }
   }
+
   .active {
     background-color: #87ceeb;
   }

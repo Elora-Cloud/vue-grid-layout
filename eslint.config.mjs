@@ -5,17 +5,9 @@ export default elora({
   vue: true,
   typescript: true,
   ignores: [
-    '**/icons',
-    '**/mock-data',
-    'packages/*/assets/',
     'packages/*/es/',
+    'packages/*/dist/',
     'packages/*/lib/',
-    'packages/*/theme',
-    'site/public',
-    'packages/elora-plus/src/core/utils/popper.js',
-    'packages/elora-plus/src/core/utils/cleave.js',
-    'packages/elora-plus-doc/src/docs/old/visualization/china.json',
-    'packages/elora-plus-doc/src/docs/old/visualization/china.ts',
   ],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',

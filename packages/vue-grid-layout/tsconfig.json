@@ -2,25 +2,36 @@
   "compilerOptions": {
     "target": "esnext",
     "jsx": "preserve", // 指定项目的根目录
+    "jsxFactory": "h",
+    "jsxFragmentFactory": "Fragment",
     "lib": ["esnext", "dom"],
-    "useDefineForClassFields": true,
+    "experimentalDecorators": true,
     "baseUrl": ".",
-    "rootDir": "./src",
     "module": "esnext",
     "moduleResolution": "bundler",
+    "paths": {
+      "@/*": ["src/*"]
+    },
     "resolveJsonModule": true,
-    "types": ["vitest/globals"],
+    "typeRoots": ["./node_modules/@types/"],
+    "types": ["vitest/globals", "vite/client"],
+    "allowImportingTsExtensions": true,
     "allowJs": true,
     "checkJs": false,
     "strict": true,
+    "strictFunctionTypes": false,
+    "strictNullChecks": true,
+    "noImplicitAny": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "outDir": "./dist",
     "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "skipLibCheck": false
   },
-  "references": [
-    { "path": "./tsconfig.node.json" }
-  ],
   "include": [
     "src/**/*.ts",
     "src/**/*.vue",
