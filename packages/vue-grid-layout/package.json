@@ -1,7 +1,7 @@
 {
   "name": "@elora-cloud/vue-grid-layout",
   "type": "module",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Vue3 grid layout with resize, drag and responsive",
   "author": {
     "name": "mumulx",
