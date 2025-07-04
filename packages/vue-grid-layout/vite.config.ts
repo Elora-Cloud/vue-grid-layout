@@ -1,12 +1,11 @@
 import { resolve } from 'node:path';
 import { generateExternal } from '@elora-cloud/elora-cli';
 import vue from '@vitejs/plugin-vue';
+import dts from 'unplugin-dts/vite';
 import { defineConfig } from 'vite';
-import dts from 'vite-plugin-dts';
 
 export default defineConfig({
   build: {
-    target: 'modules',
     outDir: 'es',
     emptyOutDir: true,
     minify: true,

@@ -1,7 +1,7 @@
 {
   "name": "@elora-cloud/vue-grid-layout-monorepo",
   "version": "1.0.0",
-  "packageManager": "pnpm@10.8.1",
+  "packageManager": "pnpm@10.12.4",
   "homepage": "https://github.com/Elora-Cloud/vue-grid-layout/blob/master/README.md",
   "repository": {
     "type": "git",

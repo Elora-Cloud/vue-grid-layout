@@ -81,6 +81,10 @@
     "lib"
   ],
   "style": "dist/vue-grid-layout.css",
+  "engines": {
+    "node": ">=24",
+    "pnpm": "^10"
+  },
   "scripts": {
     "dev": "vite",
     "clean:css": "rimraf -rf es/vue-grid-layout.css lib/vue-grid-layout.css",
@@ -122,8 +126,8 @@
     "cross-env": "catalog:",
     "jsdom": "catalog:",
     "sass": "catalog:",
+    "unplugin-dts": "catalog:",
     "vite": "catalog:",
-    "vite-plugin-dts": "catalog:",
     "vitest": "catalog:"
   }
 }

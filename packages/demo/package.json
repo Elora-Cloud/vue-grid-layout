@@ -13,17 +13,14 @@
   },
   "dependencies": {
     "@elora-cloud/vue-grid-layout": "workspace:*",
-    "ant-design-vue": "catalog:",
     "cross-env": "catalog:",
     "echarts": "catalog:",
-    "uuid": "catalog:",
     "vue": "catalog:"
   },
   "devDependencies": {
     "@types/node": "catalog:",
     "@vitejs/plugin-vue": "catalog:",
     "vite": "catalog:",
-    "vue-template-compiler": "catalog:",
     "vue-tsc": "catalog:"
   }
 }
