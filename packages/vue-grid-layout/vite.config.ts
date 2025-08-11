@@ -38,7 +38,7 @@ export default defineConfig({
       external: generateExternal({ full: true, packagePath: resolve(__dirname, './package.json') }),
     },
   },
-  plugins: [vue(), dts()],
+  plugins: [vue(), dts({ processor: 'vue' })],
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),

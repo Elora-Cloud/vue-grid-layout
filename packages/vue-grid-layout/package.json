@@ -95,7 +95,7 @@
     "preview": "vite preview",
     "changelog": "elora changelog",
     "test": "vitest",
-    "release": "elora release",
+    "release": "elora release --registry https://npm.pkg.github.com",
     "test:coverage": "vitest run --coverage",
     "typecheck": "vue-tsc --noEmit"
   },
@@ -122,6 +122,7 @@
     "@types/jest": "catalog:",
     "@vitejs/plugin-vue": "catalog:",
     "@vitest/coverage-v8": "catalog:",
+    "@vue/language-core": "catalog:",
     "@vue/test-utils": "catalog:",
     "cross-env": "catalog:",
     "jsdom": "catalog:",

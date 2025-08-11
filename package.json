@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "@elora-cloud/eslint-config": "catalog:",
+    "@vue/language-core": "catalog:",
     "eslint": "catalog:",
     "prettier": "catalog:",
     "sass": "catalog:",
