@@ -1,36 +1,49 @@
 <script lang="ts" setup>
 import type { Interactable } from '@interactjs/core/Interactable';
 import type { Emitter } from 'mitt';
-import type { Breakpoints, EventsData, GridItemPos, GridItemPropsChild, GridItemWH, GridLayoutLayoutData, GridLayoutProps, Layout } from '../../types';
+import type {
+  Breakpoints,
+  EventsData,
+  GridItemInstance,
+  GridItemPos,
+  GridItemPropsChild,
+  GridItemWH,
+  GridLayoutLayoutData,
+  GridLayoutProps,
+  Layout,
+} from '../../types';
 import interact from '@interactjs/interact';
-import { computed, defineEmits, defineExpose, defineOptions, defineProps, defineSlots, inject, onBeforeUnmount, onMounted, ref, watch, withDefaults } from 'vue';
+import {
+  computed,
+  defineEmits,
+  defineExpose,
+  defineOptions,
+  defineProps,
+  defineSlots,
+  inject,
+  onBeforeUnmount,
+  onMounted,
+  ref,
+  useTemplateRef,
+  watch,
+  withDefaults,
+} from 'vue';
 import { getDocumentDir } from '../../helpers/DOM';
 import { createCoreData, getControlPosition } from '../../helpers/draggableUtils';
 import { getColsFromBreakpoint } from '../../helpers/responsiveUtils';
-// import useCurrentInstance from "@/hooks/useInstance"
 import { setTopLeft, setTopRight, setTransform, setTransformRtl } from '../../helpers/utils';
 import useCurrentInstance from '../../hooks/useInstance';
 import '@interactjs/auto-start';
 import '@interactjs/auto-scroll';
 import '@interactjs/actions/drag';
 import '@interactjs/actions/resize';
-
 import '@interactjs/modifiers';
-
 import '@interactjs/dev-tools';
 
 defineOptions({
   name: 'GridItem',
 });
-// interface Placeholder {
-//   x: number
-//   y: number
-//   w: number
-//   h: number
-//   i: number | string
-// }
 
-// GridLayoutProps Data
 const props = withDefaults(defineProps<GridItemPropsChild>(), {
   isDraggable: null,
   isResizable: null,
@@ -47,13 +60,12 @@ const props = withDefaults(defineProps<GridItemPropsChild>(), {
   dragOption: () => ({}),
   resizeOption: () => ({}),
 });
-// console.log(thisLayout, eventBus)
 
 const emit = defineEmits<{
   containerResized: [i: number | string, h: number, w: number, height: number, width: number]
   resize: [i: number | string, h: number, w: number, height: number, width: number]
   resized: [i: number | string, h: number, w: number, height: number, width: number]
-  move: [ i: number | string, x: number, y: number]
+  move: [i: number | string, x: number, y: number]
   moved: [i: number | string, x: number, y: number]
 }>();
 const slots = defineSlots<{
@@ -83,7 +95,7 @@ const eventBus = inject('eventBus') as Emitter<{
 }>;
 
 // item dom
-const this$refsItem = ref<HTMLElement>({} as HTMLElement);
+const gridItemRef = useTemplateRef<HTMLElement>('gridItemRef');
 
 // self data
 const cols = ref<number>(1);
@@ -96,7 +108,6 @@ const resizable = ref<boolean | null>(null);
 const transformScale = ref<number>(1);
 const useCssTransforms = ref<boolean>(true);
 const useStyleCursor = ref<boolean>(true);
-
 const isDragging = ref(false);
 const dragging = ref<GridItemPos | null>(null);
 const isResizing = ref(false);
@@ -107,10 +118,8 @@ const lastW = ref(Number.NaN);
 const lastH = ref(Number.NaN);
 const styleObj = ref({} as any);
 const rtl = ref(false);
-
 const dragEventSet = ref(false);
 const resizeEventSet = ref(false);
-
 const previousW = ref<number | null>(null);
 const previousH = ref<number | null>(null);
 const previousX = ref<number | null>(null);
@@ -119,9 +128,7 @@ const innerX = ref<number>(props.x);
 const innerY = ref<number>(props.y);
 const innerW = ref<number>(props.w);
 const innerH = ref<number>(props.h);
-
 const bounded = ref<boolean | null>(null);
-
 const interactObj = ref<Interactable | null>(null);
 // computed
 
@@ -280,9 +287,11 @@ watch(
 function updateWidthHandler(width: number) {
   updateWidth(width);
 }
+
 function compactHandler(layout?: Layout) {
   selfCompact(layout);
 }
+
 function setDraggableHandler(isDraggable: boolean) {
   if (props.isDraggable === null) {
     draggable.value = isDraggable;
@@ -294,6 +303,7 @@ function setResizableHandler(isResizable: boolean) {
     resizable.value = isResizable;
   }
 }
+
 function setBoundedHandler(isBounded: boolean) {
   if (props.isBounded === null) {
     bounded.value = isBounded;
@@ -388,7 +398,7 @@ onMounted(() => {
   useStyleCursor.value = thisLayout?.useStyleCursor as boolean;
   createStyle();
 });
-// methods
+
 function createStyle() {
   if (props.x + props.w > cols.value) {
     innerX.value = 0;
@@ -428,7 +438,7 @@ function createStyle() {
   }
   else {
     // top,left (slow)
-    //                    Add rtl support
+    // Add rtl support
     if (renderRtl.value) {
       sty = setTopRight(pos.top, pos.right as number, pos.width, pos.height);
     }
@@ -438,6 +448,7 @@ function createStyle() {
   }
   styleObj.value = sty;
 }
+
 function emitContainerResized() {
   // this.style has width and height with trailing 'px'. The
   // resized event is without them
@@ -641,9 +652,9 @@ function handleDrag(event: MouseEvent) {
           = containerWidth.value - calcGridItemWHPx(props.w, colWidth, margin.value[0]);
         newPosition.left = clamp(newPosition.left, 0, rightBoundary);
       }
-      //                        console.log("### drag => " + event.type + ", x=" + x + ", y=" + y);
-      //                        console.log("### drag => " + event.type + ", deltaX=" + coreEvent.deltaX + ", deltaY=" + coreEvent.deltaY);
-      //                        console.log("### drag end => " + JSON.stringify(newPosition));
+      // console.log("### drag => " + event.type + ", x=" + x + ", y=" + y);
+      // console.log("### drag => " + event.type + ", deltaX=" + coreEvent.deltaX + ", deltaY=" + coreEvent.deltaY);
+      // console.log("### drag end => " + JSON.stringify(newPosition));
       dragging.value = newPosition as GridItemPos;
       break;
     }
@@ -680,6 +691,7 @@ function handleDrag(event: MouseEvent) {
   };
   eventBus.emit('dragEvent', data);
 }
+
 function calcPosition(x: number, y: number, w: number, h: number): GridItemPos {
   const colWidth = calcColWidth();
   // add rtl support
@@ -711,6 +723,7 @@ function calcPosition(x: number, y: number, w: number, h: number): GridItemPos {
 
   return out;
 }
+
 /**
  * Translate x and y coordinates from pixels to grid units.
  * @param  {number} top  Top position (relative to parent) in pixels.
@@ -744,6 +757,7 @@ function calcColWidth() {
   // console.log("### COLS=" + this.cols + " COL WIDTH=" + colWidth + " MARGIN " + this.margin[0]);
   return colWidth;
 }
+
 // This can either be called:
 // calcGridItemWHPx(w, colWidth, margin[0])
 // or
@@ -753,10 +767,12 @@ function calcGridItemWHPx(gridUnits: number, colOrRowSize: number, marginPx: num
     return gridUnits;
   return Math.round(colOrRowSize * gridUnits + Math.max(0, gridUnits - 1) * marginPx);
 }
+
 // Similar to _.clamp
 function clamp(num: number, lowerBound: number, upperBound: number) {
   return Math.max(Math.min(num, upperBound), lowerBound);
 }
+
 /**
  * Given a height and width in pixel values, calculate grid units.
  * @param  {number} height Height in pixels.
@@ -784,19 +800,21 @@ function calcWH(height: number, width: number, autoSizeFlag = false): { w: numbe
   h = Math.max(Math.min(h, maxRows.value - innerY.value), 0);
   return { w, h };
 }
+
 function updateWidth(width: number, colNum?: number) {
   containerWidth.value = width;
   if (colNum !== undefined && colNum !== null) {
     cols.value = colNum;
   }
 }
+
 function selfCompact(_layout?: Layout) {
   createStyle();
 }
 
 function tryMakeDraggable() {
   if (interactObj.value === null || interactObj.value === undefined) {
-    interactObj.value = interact(this$refsItem.value);
+    interactObj.value = interact(gridItemRef.value!);
     if (!useStyleCursor.value) {
       interactObj.value.styleCursor(false);
     }
@@ -822,9 +840,10 @@ function tryMakeDraggable() {
     });
   }
 }
+
 function tryMakeResizable() {
   if (interactObj.value === null || interactObj.value === undefined) {
-    interactObj.value = interact(this$refsItem.value);
+    interactObj.value = interact(gridItemRef.value!);
     if (!useStyleCursor.value) {
       interactObj.value.styleCursor(false);
     }
@@ -879,6 +898,7 @@ function tryMakeResizable() {
     });
   }
 }
+
 function autoSize() {
   // ok here we want to calculate if a resize is needed
   previousW.value = innerW.value;
@@ -926,7 +946,7 @@ function autoSize() {
   }
 }
 
-defineExpose({
+defineExpose<GridItemInstance>({
   autoSize,
   calcXY,
   dragging,
@@ -935,7 +955,7 @@ defineExpose({
 </script>
 
 <template>
-  <div ref="this$refsItem" class="vue-grid-item" :class="classObj" :style="styleObj">
+  <div ref="gridItemRef" class="vue-grid-item" :class="classObj" :style="styleObj">
     <slot :style="styleObj" />
     <span v-if="resizableAndNotStatic" :class="resizableHandleClass" />
     <!-- <span v-if="draggable" ref="dragHandle" class="vue-draggable-handle"></span> -->

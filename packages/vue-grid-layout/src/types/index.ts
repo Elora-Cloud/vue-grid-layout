@@ -1,4 +1,6 @@
 import type elementResizeDetectorMaker from 'element-resize-detector';
+import type { EventType } from 'mitt';
+import type { Ref, TemplateRef } from 'vue';
 
 export const IS_UNITLESS: Record<string, boolean> = {
   animationIterationCount: true,
@@ -63,8 +65,12 @@ export type DragCallbackData = {
   lastX: number, lastY: number
 };
 */
+
 // export type DragEvent = {e: Event} & DragCallbackData;
-export interface Size { width: number, height: number }
+export interface Size {
+  width: number
+  height: number
+}
 
 export interface TopLeftStyle {
   top: string
@@ -101,14 +107,36 @@ export interface TransformStyle {
   height: string
   position: 'absolute' | 'relative'
 }
+
 export type Breakpoint = string;
-export interface Breakpoints { lg?: number, md?: number, sm?: number, xs?: number, xxs?: number, [key: string]: number | undefined }
-export interface ResponsiveLayout { lg?: Layout, md?: Layout, sm?: Layout, xs?: Layout, xxs?: Layout, [key: Breakpoint]: Layout | undefined }
+
+export interface Breakpoints {
+  lg?: number
+  md?: number
+  sm?: number
+  xs?: number
+  xxs?: number
+
+  [key: string]: number | undefined
+}
+
+export interface ResponsiveLayout {
+  lg?: Layout
+  md?: Layout
+  sm?: Layout
+  xs?: Layout
+  xxs?: Layout
+
+  [key: Breakpoint]: Layout | undefined
+}
+
 export type Direction = 'ltr' | 'rtl' | 'auto';
+
 export interface Point {
   x: number
   y: number
 }
+
 export interface DraggableCoreData {
   deltaX: number
   deltaY: number
@@ -117,6 +145,7 @@ export interface DraggableCoreData {
   x: number
   y: number
 }
+
 export interface EventsData {
   eventType: string | symbol
   i: string | number
@@ -147,6 +176,7 @@ export interface GridItemPropsChild {
   dragOption?: { [key: string]: any }
   resizeOption?: { [key: string]: any }
 }
+
 export interface GridItemPos {
   left?: number
   right?: number
@@ -154,6 +184,7 @@ export interface GridItemPos {
   width: number
   height: number
 }
+
 export interface GridItemWH {
   width: number
   height: number
@@ -166,6 +197,7 @@ export interface GridLayoutPlaceholder {
   h: number
   i: number | string
 }
+
 export interface GridLayoutProps {
   autoSize?: boolean
   colNum?: number
@@ -188,6 +220,7 @@ export interface GridLayoutProps {
   preventCollision?: boolean
   useStyleCursor?: boolean
 }
+
 export interface GridLayoutLayoutData {
   width: number | null
   mergeStyle: { [key: string]: string }
@@ -200,4 +233,37 @@ export interface GridLayoutLayoutData {
   erd: elementResizeDetectorMaker.Erd | null
   positionsBeforeDrag: { [key: string]: string }
   this$refsLayout: HTMLElement
+}
+
+export interface GridItemInstance extends GridItemPropsChild {
+  autoSize: () => void
+  dragging: Ref<GridItemPos | null>
+  /**
+   * Translate x and y coordinates from pixels to grid units.
+   * @param  {number} top  Top position (relative to parent) in pixels.
+   * @param  {number} left Left position (relative to parent) in pixels.
+   * @return {object} x and y in grid units.
+   */
+  calcXY: (top: number, left: number) => { x: number, y: number }
+}
+
+export interface GridLayoutInstance extends GridLayoutProps {
+  width: Ref<number | null>
+  lastBreakpoint: Ref<string | null>
+  lastLayoutLength: Ref<number>
+  isDragging: Ref<boolean>
+  erd: Ref<elementResizeDetectorMaker.Erd | null>
+  originalLayout: Ref<Layout | null>
+  placeholder: Ref<GridLayoutPlaceholder>
+  mergeStyle: Ref<{ [key: string]: string }>
+  layouts: Ref<{ [key: string]: Layout | any }>
+  gridItemRef: TemplateRef<GridItemInstance>
+  dragEvent: (
+    eventName?: EventType,
+    id?: string | number,
+    x?: number,
+    y?: number,
+    h?: number,
+    w?: number,
+  ) => void
 }

@@ -20,6 +20,3 @@ function withInstall<T, E extends Record<string, any>>(main: T, extra?: E) {
 
 export const GridItem = withInstall(gridItem);
 export const GridLayout = withInstall(gridLayout);
-export type GridItemInstance = InstanceType<typeof gridItem>;
-
-export type GridLayoutInstance = InstanceType<typeof gridLayout>;

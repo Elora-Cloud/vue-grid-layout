@@ -1,9 +1,31 @@
 <script lang="ts" setup>
 import type { Emitter, EventType } from 'mitt';
-import type { EventsData, GridLayoutPlaceholder, GridLayoutProps, Layout, LayoutItem } from '../../types';
+import type {
+  EventsData,
+  GridItemInstance,
+  GridLayoutInstance,
+  GridLayoutPlaceholder,
+  GridLayoutProps,
+  Layout,
+  LayoutItem,
+} from '../../types';
 import elementResizeDetectorMaker from 'element-resize-detector';
 import mitt from 'mitt';
-import { defineEmits, defineExpose, defineOptions, defineProps, nextTick, onBeforeMount, onBeforeUnmount, onMounted, provide, ref, watch, withDefaults } from 'vue';
+import {
+  defineEmits,
+  defineExpose,
+  defineOptions,
+  defineProps,
+  nextTick,
+  onBeforeMount,
+  onBeforeUnmount,
+  onMounted,
+  provide,
+  ref,
+  useTemplateRef,
+  watch,
+  withDefaults,
+} from 'vue';
 
 import { addWindowEventListener, removeWindowEventListener } from '../../helpers/DOM';
 import {
@@ -26,9 +48,6 @@ import GridItem from './GridItem.vue';
 defineOptions({
   name: 'GridLayout',
 });
-// import useCurrentInstance from "@/hooks/useInstance"
-
-// const {proxy} = useCurrentInstance()
 
 // GridLayoutProps Data
 const props = withDefaults(defineProps<GridLayoutProps>(), {
@@ -52,7 +71,6 @@ const props = withDefaults(defineProps<GridLayoutProps>(), {
   preventCollision: false,
   useStyleCursor: true,
 });
-// provide("thisLayout", proxy)
 // add listen
 const emit = defineEmits<{
   'layoutCreated': [layout: Layout]
@@ -78,9 +96,9 @@ const originalLayout = ref<Layout | null>(null);
 const erd = ref<elementResizeDetectorMaker.Erd | null>(null);
 const positionsBeforeDrag = ref<{ [key: string]: string }>();
 // layout dom
-const this$refsLayout = ref<HTMLElement>({} as HTMLElement);
+const layoutRef = useTemplateRef<HTMLElement>('layoutRef');
 // default grid item
-const defaultGridItem = ref();
+const gridItemRef = useTemplateRef<GridItemInstance>('gridItemRef');
 const eventBus: Emitter<{
   resizeEvent?: EventsData
   dragEvent?: EventsData
@@ -96,6 +114,7 @@ const eventBus: Emitter<{
 }> = mitt();
 
 provide('eventBus', eventBus);
+
 // Accessible references of functions for removing in beforeDestroy
 function resizeEventHandler(data?: EventsData) {
   if (!data) {
@@ -126,7 +145,7 @@ onBeforeUnmount(() => {
   eventBus.off('dragEvent', dragEventHandler);
   removeWindowEventListener('resize', onWindowResize);
   if (erd.value) {
-    erd.value.uninstall(this$refsLayout.value);
+    erd.value.uninstall(layoutRef.value!);
   }
 });
 
@@ -158,7 +177,7 @@ onMounted(() => {
           // See https://github.com/wnr/element-resize-detector/issues/110 about callOnAdd.
           callOnAdd: false,
         });
-        erd.value.listenTo(this$refsLayout.value, () => {
+        erd.value.listenTo(layoutRef.value!, () => {
           onWindowResize();
         });
       });
@@ -301,6 +320,7 @@ function layoutUpdate() {
     emit('layoutUpdated', props.layout);
   }
 }
+
 function updateHeight() {
   mergeStyle.value = {
     height: containerHeight(),
@@ -308,11 +328,12 @@ function updateHeight() {
 }
 
 function onWindowResize() {
-  if (this$refsLayout.value !== null && this$refsLayout.value !== undefined) {
-    width.value = this$refsLayout.value.offsetWidth;
+  if (layoutRef.value !== null && layoutRef.value !== undefined) {
+    width.value = layoutRef.value.offsetWidth;
   }
   eventBus.emit('resizeEvent');
 }
+
 function containerHeight(): string {
   if (!props.autoSize)
     return '';
@@ -389,6 +410,7 @@ function dragEvent(
     emit('layoutUpdated', layout);
   }
 }
+
 function resizeEvent(
   eventName?: EventType,
   id?: string | number,
@@ -498,6 +520,7 @@ function responsiveGridLayout() {
   lastBreakpoint.value = newBreakpoint;
   eventBus.emit('setColNum', getColsFromBreakpoint(newBreakpoint, props.cols));
 }
+
 // clear all responsive layouts
 function initResponsiveFeatures() {
   layouts.value = Object.assign({}, props.responsiveLayouts);
@@ -522,8 +545,9 @@ function findDifference(layout: Layout, originalLayout: Layout) {
   // Combine the two arrays of unique entries#
   return uniqueResultOne.concat(uniqueResultTwo);
 }
+
 // Expose some property for this
-defineExpose({
+defineExpose<GridLayoutInstance>({
   ...props,
   width,
   mergeStyle,
@@ -534,17 +558,17 @@ defineExpose({
   lastBreakpoint,
   originalLayout,
   erd,
-  defaultGridItem,
+  gridItemRef,
   dragEvent,
 });
 </script>
 
 <template>
-  <div ref="this$refsLayout" class="vue-grid-layout" :style="mergeStyle">
+  <div ref="layoutRef" class="vue-grid-layout" :style="mergeStyle">
     <slot />
     <GridItem
       v-show="isDragging"
-      ref="defaultGridItem"
+      ref="gridItemRef"
       class="vue-grid-placeholder"
       :x="placeholder.x"
       :y="placeholder.y"
