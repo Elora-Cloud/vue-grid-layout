@@ -15,18 +15,12 @@ import type {
 import interact from '@interactjs/interact';
 import {
   computed,
-  defineEmits,
-  defineExpose,
-  defineOptions,
-  defineProps,
-  defineSlots,
   inject,
   onBeforeUnmount,
   onMounted,
   ref,
   useTemplateRef,
   watch,
-  withDefaults,
 } from 'vue';
 import { getDocumentDir } from '../../helpers/DOM';
 import { createCoreData, getControlPosition } from '../../helpers/draggableUtils';

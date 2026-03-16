@@ -1,7 +1,7 @@
 import { resolve } from 'node:path';
-import { generateExternal } from '@elora-cloud/elora-cli';
+import { generateExternal } from '@elora-cloud/elora-cli/es/utils/pkg';
+import dts from '@elora-cloud/unplugin-dts/vite';
 import vue from '@vitejs/plugin-vue';
-import dts from 'unplugin-dts/vite';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
@@ -14,7 +14,7 @@ export default defineConfig({
       entry: 'src/index.ts',
       formats: ['es', 'cjs'],
     },
-    rollupOptions: {
+    rolldownOptions: {
       input: ['src/index.ts'],
       output: [
         // esm

@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+
+    /* 项目选项 */
+    "jsx": "preserve",
+    "jsxFactory": "h",
+    "jsxFragmentFactory": "Fragment",
+    "lib": ["dom", "esnext"],
+    "baseUrl": ".",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+
+    "paths": {},
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
+    "allowJs": true,
+    /* 严格检查选项 */
+    "strict": true,
+    "strictFunctionTypes": false,
+    "strictNullChecks": true,
+    "noImplicitAny": false,
+
+    /* 附加检查 */
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "sourceMap": true,
+    /* 模块解析选项 */
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    /* 高级选项 */
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "skipLibCheck": false
+  }
+}

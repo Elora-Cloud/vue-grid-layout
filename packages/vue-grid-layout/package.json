@@ -118,16 +118,19 @@
   "devDependencies": {
     "@babel/types": "catalog:",
     "@elora-cloud/elora-cli": "catalog:",
+    "@elora-cloud/unplugin-dts": "catalog:",
     "@types/element-resize-detector": "catalog:",
     "@types/jest": "catalog:",
+    "@types/node": "catalog:",
+    "@types/rimraf": "catalog:",
     "@vitejs/plugin-vue": "catalog:",
     "@vitest/coverage-v8": "catalog:",
     "@vue/language-core": "catalog:",
     "@vue/test-utils": "catalog:",
     "cross-env": "catalog:",
     "jsdom": "catalog:",
+    "rimraf": "catalog:",
     "sass": "catalog:",
-    "unplugin-dts": "catalog:",
     "vite": "catalog:",
     "vitest": "catalog:"
   }

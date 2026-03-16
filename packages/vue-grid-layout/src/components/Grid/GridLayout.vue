@@ -12,10 +12,6 @@ import type {
 import elementResizeDetectorMaker from 'element-resize-detector';
 import mitt from 'mitt';
 import {
-  defineEmits,
-  defineExpose,
-  defineOptions,
-  defineProps,
   nextTick,
   onBeforeMount,
   onBeforeUnmount,
@@ -24,7 +20,6 @@ import {
   ref,
   useTemplateRef,
   watch,
-  withDefaults,
 } from 'vue';
 
 import { addWindowEventListener, removeWindowEventListener } from '../../helpers/DOM';
